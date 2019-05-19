@@ -16,7 +16,7 @@ const io = socketIo(server);
 const getApiAndEmit = async socket => {
     try {
         const res = await axios.get(
-            "https://api.darksky.net/forecast/b48d30378dfe9259fa9dd55998b5cc2b/43.7695,11.2558"
+              "https://api.darksky.net/forecast/e564ee453c3296e4041fefedb8ab9d90/37.8267,-122.4233"
         ); // Getting the data from DarkSky
         socket.emit("FromAPI", res.data.currently.temperature); // Emitting a new message. It will be consumed by the client
     } catch (error) {
@@ -31,7 +31,7 @@ io.on("connection", socket => {
     if (interval) {
         clearInterval(interval);
     }
-    interval = setInterval(() => { getApiAndEmit(socket), 10000 });
+    interval = setInterval(() => { getApiAndEmit(socket), 1000 });
 
     socket.on("disconnect", () => { console.log("Client disconnected") });
 });
